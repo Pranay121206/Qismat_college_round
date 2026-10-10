@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handsfree - Settings</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="page-header">
+        <div class="logo">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+            <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+            <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+            <path
+              d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <h1>Handsfree Settings</h1>
+          <p class="subtitle">Customize touchless tracking, cursor behavior, and voice input</p>
+        </div>
+      </header>
+
+      <main class="settings-grid">
+        <!-- Tracking Mode -->
+        <section class="card">
+          <div class="card-title">Tracking Mode</div>
+          <div class="card-desc">Active control method</div>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="mode" value="head" checked />
+              <div class="radio-content">
+                <span class="label-title">Head Tracking</span>
+                <span class="label-desc">Nose tip & facial yaw/pitch via webcam</span>
+              </div>
+            </label>
+          </div>
+        </section>
+
+        <!-- Cursor & Sensitivity -->
+        <section class="card">
+          <div class="card-title">Cursor & Dynamics</div>
+          <div class="card-desc">Tune movement responsiveness and size</div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="sensitivity">Sensitivity Gain</label>
+              <span class="field-val" id="valSensitivity">1.0x</span>
+            </div>
+            <input type="range" id="sensitivity" min="0.2" max="3.0" step="0.1" value="1.0" />
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="cursorSize">Cursor Size (px)</label>
+              <span class="field-val" id="valCursorSize">28px</span>
+            </div>
+            <input type="range" id="cursorSize" min="16" max="64" step="2" value="28" />
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="snapRadius">Target Snap Radius (px)</label>
+              <span class="field-val" id="valSnapRadius">40px</span>
+            </div>
+            <input type="range" id="snapRadius" min="0" max="100" step="5" value="40" />
+          </div>
+        </section>
+
+        <!-- Click & Voice -->
+        <section class="card">
+          <div class="card-title">Action & Voice</div>
+          <div class="card-desc">Control click triggers and speech engine</div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="dwellMs">Dwell Click Delay (ms)</label>
+              <span class="field-val" id="valDwellMs">800ms</span>
+            </div>
+            <input type="range" id="dwellMs" min="300" max="2000" step="50" value="800" />
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="dwellTolerance">Dwell Tolerance Radius (px)</label>
+              <span class="field-val" id="valDwellTolerance">25px</span>
+            </div>
+            <input type="range" id="dwellTolerance" min="10" max="80" step="5" value="25" />
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="dwellCooldownMs">Click Cooldown (ms)</label>
+              <span class="field-val" id="valDwellCooldownMs">600ms</span>
+            </div>
+            <input type="range" id="dwellCooldownMs" min="200" max="1500" step="50" value="600" />
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="voiceEngine">Voice Recognition Engine</label>
+            </div>
+            <select id="voiceEngine" class="select-input">
+              <option value="webspeech">Web Speech API (Default)</option>
+              <option value="vosk">Vosk-browser (Offline WASM)</option>
+            </select>
+          </div>
+          <div class="field">
+            <div class="field-header">
+              <label for="scrollSpeed">Smooth Scroll Speed (px/s)</label>
+              <span class="field-val" id="valScrollSpeed">400px/s</span>
+            </div>
+            <input type="range" id="scrollSpeed" min="100" max="1000" step="50" value="400" />
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="confirmationTone">Confirmation Tone</label>
+            </div>
+            <label class="toggle-label">
+              <input type="checkbox" id="confirmationTone" checked />
+              <span>Play audio chime when voice command recognized</span>
+            </label>
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="wakeWordEnabled">Wake Word Guard</label>
+            </div>
+            <label class="toggle-label">
+              <input type="checkbox" id="wakeWordEnabled" />
+              <span>Require saying wake word before command</span>
+            </label>
+          </div>
+
+          <div class="field" id="wakeWordFieldGroup">
+            <div class="field-header">
+              <label for="wakeWord">Wake Word</label>
+            </div>
+            <input
+              type="text"
+              id="wakeWord"
+              class="select-input"
+              value="handsfree"
+              placeholder="e.g. handsfree"
+            />
+          </div>
+
+          <div class="field">
+            <div class="field-header">
+              <label for="customSites">Custom Sites (format: name=https://url, one per line)</label>
+            </div>
+            <textarea
+              id="customSites"
+              class="select-input"
+              style="
+                height: 90px;
+                resize: vertical;
+                font-family: monospace;
+                font-size: 11px;
+                padding: 6px;
+              "
+            ></textarea>
+          </div>
+        </section>
+      </main>
+
+      <footer class="actions-bar">
+        <div id="toast" class="toast hidden">Settings saved successfully</div>
+        <div class="btn-group">
+          <button id="resetBtn" class="btn secondary">Reset to Defaults</button>
+          <button id="saveBtn" class="btn primary">Save Changes</button>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>

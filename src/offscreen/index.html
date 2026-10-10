@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Handsfree Offscreen Pipeline</title>
+  </head>
+  <body>
+    <!-- Hidden media capture and ML processing container -->
+    <video
+      id="offscreenVideo"
+      playsinline
+      muted
+      autoplay
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 640px;
+        height: 480px;
+        opacity: 0.001;
+        pointer-events: none;
+        z-index: -1;
+      "
+    ></video>
+    <script src="/mediapipe/wasm/vision_wasm_internal.js"></script>
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handsfree - Setup & Media Feasibility Spike</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="setup-container">
+      <!-- Header -->
+      <header class="setup-header">
+        <div class="logo">
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+            <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+            <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+            <path
+              d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
+            ></path>
+          </svg>
+        </div>
+        <h1>Welcome to Handsfree</h1>
+        <p class="subtitle">Touchless browser control via head movement and voice commands</p>
+      </header>
+
+      <!-- Privacy Banner -->
+      <section class="privacy-banner">
+        <div class="banner-icon">
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <div>
+          <strong>100% On-Device Privacy:</strong> Video frames and microphone audio are processed
+          locally in your browser and NEVER sent to external servers or cloud APIs.
+        </div>
+      </section>
+
+      <main class="setup-cards">
+        <!-- Step 1: Permissions -->
+        <div class="card" id="step1Card">
+          <div class="card-header">
+            <span class="step-badge">Step 1</span>
+            <h2>Grant Camera & Microphone Access</h2>
+          </div>
+          <p>
+            Handsfree requires camera access for head/face movement tracking and microphone access
+            for voice navigation commands.
+          </p>
+
+          <div class="action-row">
+            <button id="requestPermsBtn" class="primary-btn">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+              <span>Allow Camera & Microphone</span>
+            </button>
+            <div id="permStatus" class="status-box">Status: Waiting for permission</div>
+          </div>
+
+          <!-- Permission Denied Recovery Instructions -->
+          <div id="deniedGuidance" class="denied-guidance" style="display: none">
+            <div class="denied-header">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <strong>Camera/Microphone Permission Denied</strong>
+            </div>
+            <p>
+              To enable Handsfree, follow these simple steps to re-enable permissions in your
+              browser:
+            </p>
+            <ol class="steps-list">
+              <li>
+                Click the <strong>Site Information / Tune icon</strong> (🔒 or 🎛️) on the left side
+                of the browser's address bar.
+              </li>
+              <li>
+                Switch both <strong>Camera</strong> and <strong>Microphone</strong> switches from
+                "Block" to <strong>"Allow"</strong>.
+              </li>
+              <li>
+                Alternatively, open <code>chrome://settings/content/siteDetails</code> and set
+                permissions to Allow.
+              </li>
+              <li>After allowing permissions, click <strong>Try Again</strong> below.</li>
+            </ol>
+            <button id="retryPermsBtn" class="secondary-btn">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+              </svg>
+              Try Again
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Diagnostics Preview -->
+        <div class="card" id="step2Card">
+          <div class="card-header">
+            <span class="step-badge">Step 2</span>
+            <h2>Live Device Diagnostics</h2>
+          </div>
+          <div class="preview-grid">
+            <div class="preview-box">
+              <div class="preview-header">
+                <span class="preview-title">Live Camera Stream</span>
+                <span id="camBadge" class="indicator-badge inactive">Inactive</span>
+              </div>
+              <video id="videoPreview" autoplay playsinline muted></video>
+              <div id="camFallback" class="fallback-placeholder">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                  />
+                  <circle cx="12" cy="13" r="4" />
+                </svg>
+                <span>Camera stream waiting for permission</span>
+              </div>
+            </div>
+
+            <div class="preview-box">
+              <div class="preview-header">
+                <span class="preview-title">Microphone Level Meter</span>
+                <span id="micBadge" class="indicator-badge inactive">Inactive</span>
+              </div>
+              <div class="mic-meter-container">
+                <div class="meter-bar">
+                  <div id="meterFill" class="meter-fill"></div>
+                </div>
+                <div class="meter-labels">
+                  <span>0 dB</span>
+                  <span id="meterPercentText">0%</span>
+                  <span>Max</span>
+                </div>
+              </div>
+              <div id="micFallback" class="fallback-placeholder">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                  <line x1="12" y1="19" x2="12" y2="22" />
+                </svg>
+                <span>Microphone waiting for permission</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Feasibility Spike & Real-Time Transcripts Debug Panel -->
+        <div class="card" id="step3Card">
+          <div class="card-header">
+            <span class="step-badge accent-badge">Step 3 & Spike</span>
+            <h2>Pipeline & Web Speech API Feasibility Spike</h2>
+          </div>
+          <p>
+            Validating the MV3 <code>chrome.offscreen</code> pipeline (640x480 @ 30fps) and testing
+            the <code>webkitSpeechRecognition</code> API feasibility.
+          </p>
+
+          <!-- Pipeline Controls -->
+          <div class="pipeline-controls">
+            <button id="startPipelineBtn" class="control-action-btn start">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>Start Handsfree Pipeline</span>
+            </button>
+            <button id="stopPipelineBtn" class="control-action-btn stop" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="6" width="12" height="12"></rect>
+              </svg>
+              <span>Stop Handsfree</span>
+            </button>
+            <button id="testSpikeBtn" class="control-action-btn secondary">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+              </svg>
+              <span>Re-Test Offscreen Speech Spike</span>
+            </button>
+          </div>
+
+          <!-- Spike Status Dashboard -->
+          <div class="spike-dashboard">
+            <div class="spike-stat-card">
+              <div class="stat-label">Offscreen Document</div>
+              <div class="stat-value" id="offscreenStatusVal">Idle</div>
+            </div>
+            <div class="spike-stat-card">
+              <div class="stat-label">Webcam Stream</div>
+              <div class="stat-value" id="webcamStatusVal">Idle</div>
+            </div>
+            <div class="spike-stat-card">
+              <div class="stat-label">Active Speech Engine</div>
+              <div class="stat-value" id="speechEngineVal">Standby</div>
+            </div>
+            <div class="spike-stat-card">
+              <div class="stat-label">Speech Status</div>
+              <div class="stat-value" id="speechStatusVal">Idle</div>
+            </div>
+          </div>
+
+          <!-- Spike Findings Notice Box -->
+          <div id="spikeFindingsBox" class="spike-findings-box">
+            <div class="findings-header">
+              <span class="spike-tag" id="spikeResultTag">SPIKE TEST STATUS</span>
+              <span id="spikeResultSummary">Waiting for pipeline to start...</span>
+            </div>
+            <div class="findings-details" id="spikeResultDetails">
+              Click "Start Handsfree Pipeline" to test the offscreen document and Web Speech API.
+            </div>
+          </div>
+
+          <!-- Real-Time Speech Transcripts Feed -->
+          <div class="transcript-section">
+            <div class="transcript-header">
+              <div class="transcript-title">
+                <span class="live-dot" id="transcriptLiveDot"></span>
+                <strong>Live Speech Transcripts:</strong>
+              </div>
+              <span class="engine-badge" id="transcriptEngineBadge">Engine: Waiting</span>
+            </div>
+            <div class="transcript-display-box" id="transcriptDisplay">
+              <div class="transcript-placeholder">
+                Speak into your microphone ("click", "scroll down", "hello") to test real-time
+                recognition...
+              </div>
+            </div>
+          </div>
+
+          <!-- Spike Event Log Stream -->
+          <details class="spike-log-accordion">
+            <summary class="spike-log-summary">
+              View Detailed Spike Event Log (<span id="eventCount">0</span> events)
+            </summary>
+            <div class="spike-log-terminal" id="spikeEventLog">
+              <div class="log-entry system">[00:00:00] Ready for testing.</div>
+            </div>
+          </details>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="setup-footer">
+        <button id="finishBtn" class="finish-btn" disabled>
+          <span>Complete Setup & Finish</span>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </footer>
+    </div>
+
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>

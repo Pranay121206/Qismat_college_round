@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handsfree</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="popup-container">
+      <header class="header">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+              <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+              <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+              <path
+                d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h1 class="title">Handsfree</h1>
+            <p class="subtitle">Touchless Web Navigation</p>
+          </div>
+        </div>
+        <span class="status-badge" id="statusBadge">Handsfree ready</span>
+      </header>
+
+      <section class="controls-card">
+        <div class="control-row">
+          <div>
+            <div class="control-label">Tracking Mode</div>
+            <div class="control-desc" id="currentModeDesc">Head Motion</div>
+          </div>
+          <span class="status-badge active" style="font-size: 11px">Head Motion</span>
+        </div>
+
+        <div class="action-row">
+          <button id="toggleBtn" class="primary-btn" style="flex: 1.15">
+            <span class="btn-dot"></span>
+            <span id="toggleBtnText">Start</span>
+          </button>
+          <button id="recenterBtn" class="secondary-btn" title="Reset neutral pose (Alt+Shift+C)">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+              <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+              <path d="M16 21h5v-5" />
+            </svg>
+            <span>Center</span>
+          </button>
+        </div>
+
+        <div class="shortcut-hint">
+          <span>Shortcuts:</span>
+          <kbd>Alt+Shift+H</kbd> <span>Pause</span> | <kbd>Alt+Shift+C</kbd> <span>Center</span>
+        </div>
+      </section>
+
+      <footer class="footer-links">
+        <button id="openCommandsBtn" class="link-btn" title="Voice Commands help sheet">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+          Commands
+        </button>
+        <button id="openSetupBtn" class="link-btn">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+            />
+            <circle cx="12" cy="13" r="4" />
+          </svg>
+          Setup
+        </button>
+        <button id="openOptionsBtn" class="link-btn">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+            />
+          </svg>
+          Settings
+        </button>
+      </footer>
+
+      <!-- Sliding Commands Help Sheet -->
+      <div id="commandsSheet" class="commands-sheet">
+        <div class="sheet-header">
+          <div class="sheet-title-group">
+            <h2 class="sheet-title">🎙️ Voice Commands</h2>
+            <p class="sheet-sub">Say any command or "what can I say"</p>
+          </div>
+          <button id="closeCommandsBtn" class="close-btn" title="Close">✕</button>
+        </div>
+
+        <div class="sheet-content">
+          <div class="cmd-group">
+            <div class="cmd-group-title">🎯 Pointer</div>
+            <div class="cmd-item"><code>click</code><span>Left click</span></div>
+            <div class="cmd-item"><code>double click</code><span>Double click</span></div>
+            <div class="cmd-item"><code>right click</code><span>Right click</span></div>
+            <div class="cmd-item"><code>drag / drop</code><span>Drag & drop gesture</span></div>
+          </div>
+
+          <div class="cmd-group">
+            <div class="cmd-group-title">📜 Scroll</div>
+            <div class="cmd-item"><code>scroll down</code><span>Continuous smooth down</span></div>
+            <div class="cmd-item"><code>scroll up</code><span>Continuous smooth up</span></div>
+            <div class="cmd-item"><code>stop</code><span>Halt scrolling</span></div>
+            <div class="cmd-item"><code>page down / up</code><span>Scroll one page</span></div>
+            <div class="cmd-item"><code>top / bottom</code><span>Scroll top / bottom</span></div>
+          </div>
+
+          <div class="cmd-group">
+            <div class="cmd-group-title">🌐 Navigation</div>
+            <div class="cmd-item">
+              <code>go back / forward</code><span>History back/forward</span>
+            </div>
+            <div class="cmd-item"><code>refresh</code><span>Reload page</span></div>
+            <div class="cmd-item"><code>new / close tab</code><span>New or close tab</span></div>
+            <div class="cmd-item"><code>next / prev tab</code><span>Cycle tabs</span></div>
+            <div class="cmd-item"><code>tab 1..9</code><span>Switch to tab #</span></div>
+            <div class="cmd-item">
+              <code>open &lt;site&gt;</code><span>google, youtube, github...</span>
+            </div>
+            <div class="cmd-item"><code>search for &lt;query&gt;</code><span>Search web</span></div>
+          </div>
+
+          <div class="cmd-group">
+            <div class="cmd-group-title">🔢 Link Hints</div>
+            <div class="cmd-item"><code>show hints</code><span>Show numbered tags</span></div>
+            <div class="cmd-item"><code>hide hints</code><span>Clear numbered tags</span></div>
+            <div class="cmd-item"><code>click &lt;number&gt;</code><span>Click hint #</span></div>
+            <div class="cmd-item">
+              <code>open link &lt;number&gt;</code><span>Open link #</span>
+            </div>
+          </div>
+
+          <div class="cmd-group">
+            <div class="cmd-group-title">⚙️ Modes & Toggles</div>
+            <div class="cmd-item"><code>pause / resume</code><span>Sleep or wake up</span></div>
+            <div class="cmd-item"><code>head mode</code><span>Head tracking mode</span></div>
+            <div class="cmd-item"><code>dwell on / off</code><span>Toggle dwell clicks</span></div>
+            <div class="cmd-item"><code>center</code><span>Re-center neutral pose</span></div>
+            <div class="cmd-item"><code>start / stop typing</code><span>Input dictation</span></div>
+            <div class="cmd-item"><code>zoom in / out</code><span>Zoom level</span></div>
+          </div>
+
+          <div class="cmd-group">
+            <div class="cmd-group-title">✅ Confirmation</div>
+            <div class="cmd-item">
+              <code>yes / no</code><span>Confirm/cancel risky action</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sheet-footer">
+          <button id="showOnPageBtn" class="sheet-action-btn">Open Help on Active Page</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./index.ts"></script>
+  </body>
+</html>
