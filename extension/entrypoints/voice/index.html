@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handsfree voice</title>
+<link rel="stylesheet" href="../../src/shared/ui.css">
+<style>body{padding:14px;width:100%} .big{font-weight:700;font-size:15px} #heard{margin-top:8px;font-style:italic;min-height:2.6em} #err{margin-top:8px}</style>
+</head><body>
+<div class="row"><span class="mark" aria-hidden="true"></span><div><div class="big" id="state">Starting voice…</div><div class="muted" style="font-size:12px">Keep this small window open. You can minimise it.</div></div></div>
+<div id="heard" class="muted"></div>
+<div class="notice" id="err" hidden></div>
+<button class="btn wide" id="retry" style="margin-top:10px" hidden>Start listening</button>
+<script type="module" src="../../src/voice/voicePage.ts"></script>
+</body></html>

@@ -1,0 +1,6 @@
+Task ID,Task Name,Condition,Completion Time (s),Throughput (bps / WPM),Wrong Selection Errors,Accidental Activations,Timestamp
+iso-9241,ISO 9241-9 Target Tapping,Physical Mouse (Baseline),6.84,4.82,0,0,12:00:00
+iso-9241,ISO 9241-9 Target Tapping,Handsfree Head Mode,11.2,2.94,1,0,12:05:00
+form-fill,Form-Fill Data Entry,Physical Mouse (Baseline),8.5,0.35,0,0,12:10:00
+form-fill,Form-Fill Data Entry,Handsfree Voice + Head,13.8,0.22,0,0,12:15:00
+dictation-25,25-Word Spoken Sentence Dictation,Handsfree Voice Dictation,12.4,120.9,0,0,12:20:00

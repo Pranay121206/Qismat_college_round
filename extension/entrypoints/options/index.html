@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handsfree settings</title>
+  <link rel="stylesheet" href="../../src/shared/ui.css">
+  <style>
+    body { padding: 32px 18px 80px; }
+    .shell { max-width: 640px; margin: 0 auto; }
+    header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    header h1 { font-size: 24px; }
+    fieldset { border: 0; margin-bottom: 18px; }
+    legend { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+    .item { display: grid; grid-template-columns: 1fr 190px 56px; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .item.toggle { grid-template-columns: 1fr auto; }
+    .item.select { grid-template-columns: 1fr 190px; }
+    .item small { display: block; color: var(--muted); }
+    .item output { font-variant-numeric: tabular-nums; text-align: right; font-weight: 650; }
+    .bar { position: sticky; bottom: 0; background: var(--paper); padding: 14px 0; display: flex; gap: 10px; align-items: center; }
+    #saveToast { color: var(--green); font-weight: 650; opacity: 0; transition: opacity .2s; }
+    #saveToast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><span class="mark" aria-hidden="true"></span><h1>Handsfree settings</h1></header>
+
+    <fieldset class="card">
+      <legend>Pointer</legend>
+      <div class="item"><label for="sensitivity">Reach<small>How far the pointer travels for each head movement</small></label><input id="sensitivity" type="range" min="0.6" max="2" step="0.05"><output id="sensitivityVal"></output></div>
+      <div class="item"><label for="smoothing">Smoothing<small>Higher is steadier but slower to react</small></label><input id="smoothing" type="range" min="0" max="1" step="0.05"><output id="smoothingVal"></output></div>
+      <div class="item"><label for="deadZone">Rest zone<small>Small movements around the middle are ignored</small></label><input id="deadZone" type="range" min="0" max="0.06" step="0.005"><output id="deadZoneVal"></output></div>
+      <div class="item"><label for="cursorSize">Pointer size</label><input id="cursorSize" type="range" min="20" max="48" step="2"><output id="cursorSizeVal"></output></div>
+      <div class="item"><label for="snapRadius">Magnet<small>Pull toward nearby buttons and links. 0 turns it off</small></label><input id="snapRadius" type="range" min="0" max="60" step="4"><output id="snapRadiusVal"></output></div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>Clicking and scrolling</legend>
+      <div class="item toggle"><label for="dwellClickEnabled">Click by resting on a button<small>Off means clicking by voice or pinch only</small></label><span class="switch"><input id="dwellClickEnabled" type="checkbox"><span></span></span></div>
+      <div class="item"><label for="dwellMs">Rest time before a click</label><input id="dwellMs" type="range" min="500" max="2500" step="100"><output id="dwellMsVal"></output></div>
+      <div class="item"><label for="scrollSpeed">Scroll speed<small>Pixels per second. “slowly” and “fast” adjust it</small></label><input id="scrollSpeed" type="range" min="80" max="700" step="20"><output id="scrollSpeedVal"></output></div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>Voice and display</legend>
+      <div class="item select"><label for="speechLang">Speech language<small>Pick the accent that matches how you speak</small></label>
+        <select id="speechLang">
+          <option value="en-US">English (US)</option><option value="en-IN">English (India)</option><option value="en-GB">English (UK)</option>
+          <option value="en-AU">English (Australia)</option><option value="hi-IN">Hindi</option><option value="es-ES">Spanish</option>
+          <option value="fr-FR">French</option><option value="de-DE">German</option>
+        </select></div>
+      <div class="item select"><label for="wakeWord">Wake word<small>Optional. Commands only work when they start with it</small></label><input id="wakeWord" type="text" placeholder="none" maxlength="20"></div>
+      <div class="item toggle"><label for="soundFeedback">Sound feedback</label><span class="switch"><input id="soundFeedback" type="checkbox"><span></span></span></div>
+      <div class="item toggle"><label for="highContrast">High contrast pointer</label><span class="switch"><input id="highContrast" type="checkbox"><span></span></span></div>
+    </fieldset>
+
+    <div class="bar">
+      <button class="btn primary" id="saveBtn">Save</button>
+      <button class="btn" id="resetBtn">Reset to defaults</button>
+      <button class="btn" id="exportBtn">Export</button>
+      <span id="saveToast" role="status">Saved</span>
+    </div>
+  </div>
+  <script type="module" src="../../src/options/options.ts"></script>
+</body>
+</html>

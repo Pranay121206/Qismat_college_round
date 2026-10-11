@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handsfree</title>
+  <link rel="stylesheet" href="../../src/shared/ui.css">
+  <style>
+    body { width: 340px; padding: 16px; }
+    header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    header h1 { font-size: 17px; }
+    header .pill { margin-left: auto; }
+    .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--ink); border-radius: 10px; overflow: hidden; margin: 12px 0; }
+    .modes button { border: 0; background: #fff; padding: 9px 0; font-weight: 650; color: var(--muted); }
+    .modes button + button { border-left: 2px solid var(--ink); }
+    .modes button.active { background: var(--yellow); color: var(--ink); }
+    .status { display: grid; gap: 8px; margin: 12px 0; }
+    .heard { min-height: 44px; padding: 10px 12px; border-radius: 10px; background: #fff; border: 1px solid var(--line); font-style: italic; color: var(--muted); }
+    .links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .links .btn { min-height: 38px; font-size: 13px; }
+    .tip { font-size: 12px; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="mark" aria-hidden="true"></span>
+    <h1>Handsfree</h1>
+    <span class="pill" id="statusBadge"><span class="d"></span><span id="statusText">Off</span></span>
+  </header>
+
+  <div class="notice" id="problem" hidden></div>
+
+  <button class="btn primary wide" id="toggleEngineBtn">Start Handsfree</button>
+
+  <div class="modes" role="group" aria-label="Tracking mode">
+    <button data-mode="head" class="mode-btn">Head</button>
+    <button data-mode="hand" class="mode-btn">Hand</button>
+  </div>
+
+  <div class="status">
+    <div class="row spread"><span>Camera</span><span class="pill" id="camPill"><span class="d"></span><span id="camText">Off</span></span></div>
+    <div class="row spread"><span>Microphone</span><span class="pill" id="micPill"><span class="d"></span><span id="micText">Off</span></span></div>
+  </div>
+
+  <div class="heard" id="transcriptText">Say a command…</div>
+
+  <div class="links">
+    <button class="btn" id="calibrateBtn">Calibrate</button>
+    <button class="btn" id="optionsBtn">Settings</button>
+  </div>
+  <p class="muted tip">Say “help” on any page to see commands. Alt+Shift+H starts or stops Handsfree.</p>
+  <script type="module" src="../../src/popup/popup.ts"></script>
+</body>
+</html>

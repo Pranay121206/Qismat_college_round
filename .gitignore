@@ -1,0 +1,6 @@
+node_modules
+.output
+.wxt
+dist
+extension/public/mediapipe
+extension/public/models/*.task
