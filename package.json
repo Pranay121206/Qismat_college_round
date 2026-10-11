@@ -1,7 +1,7 @@
-
 {
   "name": "handsfree",
   "version": "1.0.0",
+  "description": "Handsfree: Voice and Webcam-Based Browsing (CRCE Bit N Build Hackathon)",
   "private": true,
   "scripts": {
     "build:extension": "cd extension && npm run build",
@@ -10,8 +10,6 @@
     "build:site": "cd site && npm run build",
     "dev:site": "cd site && npm run dev",
     "build": "cd extension && npm run build && npm run zip && cd ../site && npm run build",
-    "test": "cd extension && npm run test",
-    "lint": "npm run compile && npm test",
-    "compile": "cd extension && npm run compile"
+    "test": "cd extension && npm run test"
   }
 }

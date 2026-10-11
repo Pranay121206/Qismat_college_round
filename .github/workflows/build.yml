@@ -1,13 +1,10 @@
-```yaml
 name: Build Handsfree Extension
 
 on:
   push:
-    branches:
-      - main
+    branches: ['*']
   pull_request:
-    branches:
-      - main
+    branches: ['*']
 
 jobs:
   build:
@@ -21,17 +18,31 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
-      - name: Install root dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Install extension dependencies
-        working-directory: extension
-        run: npm ci
-
-      - name: Check code and run tests
+      - name: Check code formatting and linting
         run: npm run lint
 
-      - name: Build and package extension
-        run: npm run zip:extension
-```
+      - name: Type check TypeScript
+        run: npm run compile
+
+      - name: Build and package extension for Chrome
+        run: npm run zip
+
+      - name: Build and package extension for Edge
+        run: npm run zip:edge
+
+      - name: Upload Chrome build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: handsfree-chrome
+          path: .output/*chrome*.zip
+
+      - name: Upload Edge build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: handsfree-edge
+          path: .output/*edge*.zip
